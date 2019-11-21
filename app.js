@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
+var bodyParser = require('body-parser');
+// var session = require('express-session');
+
+var favicon = require('serve-favicon');
+var mongoose   = require('mongoose');
+var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,17 +20,43 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//DB
+mongoose.Promise = global.Promise;
+const connStr = 'mongodb+srv://hyejin:hyejin123@cluster0-rq16v.mongodb.net/mytrip?retryWrites=true&w=majority';
+mongoose.connect(connStr, {useNewUrlParser:true,useUnifiedTopology: true, useCreateIndex: true});
+mongoose.connection.on('error', console.error);
+
+// public 디렉토리에 있는 내용은 static하게 service하도록.
+app.use(express.static(path.join(__dirname, 'public')));
+
+//icon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// _method를 통해서 method를 변경할 수 있도록 함. PUT이나 DELETE를 사용할 수 있도록.
+app.use(methodOverride('_method', {methods: ['POST', 'GET']}));
+
+// sass, scss를 사용할 수 있도록
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: true, // true = .sass and false = .scss
+  indentedSyntax: false, // true = .sass and false = .scss
+  debug: true,
   sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+
+// app.use(session({
+//   resave:true,
+//   saveUninitialized: true,
+//   secret: 'long-long-long-secret-string-1313513tefgwdsvbjkvasd'
+// }));
+
+// app.use(function(req,res,next){
+//   res.locals.currentUser = req.session.user;
+// });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
