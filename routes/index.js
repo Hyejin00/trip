@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+const User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 router.get('/signin', function(req,res,next){
@@ -15,10 +16,11 @@ router.post('/signin', function(req,res,next){
     if (err) {
       res.render('error', {message: "Error", error: err});
     } else if (!user || user.password !== req.body.password) {
-      res.send('<script type="text/javascript">alert("아이디가 존재하지않거나 비밀번호가 맞지 않습니다.");</script>');
+      req.flash('alert','아이디 또는 비밀번호가 맞지않습니다.');
       res.redirect('back');
     } else {
       req.session.user = user;
+      req.flash('alert',`환영합니다 ${user.name}`);
       res.redirect('/');
     }
   });
@@ -26,6 +28,7 @@ router.post('/signin', function(req,res,next){
 
 router.get('/signout', function(req, res, next) {
   delete req.session.user;
+  req.flash('alert','성공적으로 로그아웃 되었습니다')
   res.redirect('/');
 });
 
