@@ -16,11 +16,11 @@ router.post('/signin', function(req,res,next){
     if (err) {
       res.render('error', {message: "Error", error: err});
     } else if (!user || user.password !== req.body.password) {
-      req.flash('alert','아이디 또는 비밀번호가 맞지않습니다.');
+      req.flash('danger','아이디 또는 비밀번호가 맞지않습니다.');
       res.redirect('back');
     } else {
       req.session.user = user;
-      req.flash('alert',`환영합니다 ${user.name}`);
+      req.flash('success',`환영합니다! ${user.name}`);
       res.redirect('/');
     }
   });
@@ -28,7 +28,7 @@ router.post('/signin', function(req,res,next){
 
 router.get('/signout', function(req, res, next) {
   delete req.session.user;
-  req.flash('alert','성공적으로 로그아웃 되었습니다')
+  req.flash('info','성공적으로 로그아웃 되었습니다')
   res.redirect('/');
 });
 

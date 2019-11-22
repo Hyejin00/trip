@@ -9,30 +9,14 @@ html(lang="en")
   body
     block top-nav
       include ./includes/topnav
-    block hero-unit
     if flashMessages
       each texts, type in flashMessages
-        each msg in texts
-          p= msg
-    div.toast(role="alert", aria-live="assertive", aria-atomic="true")
-      .toast-header
-        img.rounded.mr-2(src="...", alt="...")
-        strong.mr-auto Bootstrap
-        small 11 mins ago
-        button.ml-2.mb-1.close(type="button", data-dismiss="toast", aria-label="Close")
-          span(aria-hidden="true") &times;
-      .toast-body Hello, world! This is a toast message.
-
-    .toast(role='alert', aria-live='assertive', aria-atomic='true')
-      .toast-header
-        img.rounded.mr-2(src='...', alt='...')
-        strong.mr-auto Bootstrap
-        small 11 mins ago
-        button.ml-2.mb-1.close(type='button', data-dismiss='toast', aria-label='Close')
-          span(aria-hidden='true') &times;
-      .toast-body
-        | Hello, world! This is a toast message.
-
+        .alert.alert-dismissible.fade.show(class=`alert-${type}`)
+          each msg in texts
+            | #{msg} 
+          button.close(type='button', data-dismiss='alert', aria-label='close')
+            span(aria-hidden='true') &times;
+    block hero-unit
     block content
     block footer
       include ./includes/footer

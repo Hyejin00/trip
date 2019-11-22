@@ -13,11 +13,18 @@ a {
   overflow: auto;
   /* 미디어 쿼리로 모바일,데스크탑 나누기 overflow*/
 }
-.nav-pills{
-  margin-top: 4em;
+.alert{
+  position: fixed;
+  right: 0;
+  top: 11px;
+  width: 40%;
+  box-shadow:0 2px 4px 0 rgba(0,0,0,0.15);
+  font-size:14px;
+  margin-right: 1em;
+  padding-bottom: 1.25rem;
+  padding-top: 1.25rem;
 }
-.container{
-  margin-top: 7em;
-  margin-bottom: 3em;
+.top{
+  margin-top: 4em;
 }
 /*# sourceMappingURL=style.css.map */

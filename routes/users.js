@@ -14,7 +14,7 @@ router.post('/new', catchErrors(async(req, res, next) =>{
       return next(err);
     }
     if (user) {
-      req.flash('alert','이미 가입되어있는 회원입니다.');
+      req.flash('danger','이미 가입되어있는 회원입니다.');
       
       return res.redirect('back');
     }
@@ -28,7 +28,7 @@ router.post('/new', catchErrors(async(req, res, next) =>{
       if (err) {
         return next(err);
       } else {
-        req.flash('alert','가입을 축하합니다');
+        req.flash('success','가입을 축하합니다');
         res.redirect('/');
       }
     });
