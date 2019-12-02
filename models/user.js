@@ -5,7 +5,7 @@ var schema = new Schema({
     email: {type: String, required: true, index:true, unique:true, trim:true},
     password: {type:String},
     createdAt: {type:Date, default:Date.now},
-    role: {type: String, default: "user"}
+    role: {type: String, default: "user"} //'user','guide','manager'
 });
 
 var User = mongoose.model('User', schema);

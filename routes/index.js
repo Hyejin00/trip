@@ -4,6 +4,8 @@ const User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req.session.user);
+  
   res.render('index');
 });
 
@@ -21,6 +23,8 @@ router.post('/signin', function(req,res,next){
     } else {
       req.session.user = user;
       req.flash('success',`환영합니다! ${user.name}`);
+      console.log(user);
+      
       res.redirect('/');
     }
   });

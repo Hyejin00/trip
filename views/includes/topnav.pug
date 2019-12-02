@@ -12,7 +12,25 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         li.nav-item
           a.nav-link(href='/users/new') Signup
       else
-        li.nav-item
-          a.nav-link(href=`/users/${id}`) Mypage
-        li.nav-item
-          a.nav-link(href='/signout') Signout
+        case currentUser.role
+                  when 'user'
+                    li.nav-item
+                      a.nav-link(href='/guides/new') guide registration
+                    li.nav-item
+                      a.nav-link(href=`/users/${id}`) Mypage
+                    li.nav-item
+                      a.nav-link(href='/signout') Signout
+                  when 'guide'
+                    li.nav-item
+                      a.nav-link(href=`/users/${id}`) Guidepage
+                    li.nav-item
+                      a.nav-link(href=`/users/${id}`) Mypage
+                    li.nav-item
+                      a.nav-link(href='/signout') Signout
+                  when 'manager'
+                    li.nav-item
+                      a.nav-link(href=`/users/${id}`) managerpage
+                    li.nav-item
+                      a.nav-link(href=`/users/${id}`) Mypage
+                    li.nav-item
+                      a.nav-link(href='/signout') Signout
