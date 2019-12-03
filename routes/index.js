@@ -24,7 +24,6 @@ router.post('/signin', function(req,res,next){
       req.session.user = user;
       req.flash('success',`환영합니다! ${user.name}`);
       console.log(user);
-      
       res.redirect('/');
     }
   });

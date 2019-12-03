@@ -48,4 +48,26 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   res.redirect('/');
 }));
 
+router.get('/:id', function(req, res, next){
+  Guide.findOne({user:req.params.id}, catchErrors(async(err, guide) =>{
+    if (err) {
+      return next(err);
+    }
+    if (guide) {
+      res.render('guide/edit',{guide:guide});
+    }
+  }));
+});
+
+router.post('/:id',function(req,res,next){
+  Guide.findOne({user:req.params.id}, catchErrors(async(err, guide) =>{
+    if (err) {
+      return next(err);
+    }
+    if (guide) {
+      res.redirect(`/guide/${req.params.id}`);
+    }
+  }));
+});
+
 module.exports = router;
