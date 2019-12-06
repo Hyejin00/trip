@@ -35,4 +35,8 @@ router.post('/new', catchErrors(async(req, res, next) =>{
   }));
 }));
 
+router.get('/edit',function(req,res){
+  res.render('user/edit');
+});
+
 module.exports = router;

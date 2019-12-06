@@ -1,0 +1,11 @@
+extends ../layout
+
+block hero-unit
+  nav.nav.nav-pills.nav-justified
+    a.nav-link.active(href=`/guides/${currentGuide._id}`) 정보관리
+    a.nav-link(href=`/guides/offer/${currentGuide._id}`) 나의 예약 목록
+    a.nav-link(href='/guides/offer') 장바구니
+
+block content
+  .container
+    p testesetset

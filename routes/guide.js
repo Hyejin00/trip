@@ -48,6 +48,14 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   res.redirect('/');
 }));
 
+router.get('/offer',function(req,res,next){
+  res.render('guide/offer_new');
+});
+
+router.get('/offer/:id',function(req,res,next){
+  res.render('guide/offer');
+});
+
 router.get('/:id', catchErrors(async(req, res, next) =>{
   const guide = await Guide.findById(req.params.id);
   res.render('guide/edit',{guide:guide});
@@ -69,8 +77,5 @@ router.put('/:id',catchErrors(async(req, res, next) =>{
   await guide.save();
   res.redirect(`/guides/${req.params.id}`);
 }));
-
-router.get('/offer/:id',);
-router.get('/guides/offer',);
 
 module.exports = router;

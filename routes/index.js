@@ -14,7 +14,7 @@ router.get('/signin', function(req,res,next){
 });
 
 router.post('/signin', catchErrors(async(req, res, next) =>{
-  User.findOne({email: req.body.email}, function(err, user) {
+  await User.findOne({email: req.body.email}, catchErrors(async(err, user) =>{
     if (err) {
       res.render('error', {message: "Error", error: err});
     } else if (!user || user.password !== req.body.password) {
@@ -22,19 +22,19 @@ router.post('/signin', catchErrors(async(req, res, next) =>{
       res.redirect('back');
     } else {
       req.session.user = user;
-      Guide.findOne({user: user._id}, function(err, guide) {
+      if(user.role === 'guide'){
+        await Guide.findOne({user: user._id}, function(err, guide) {
         if (err) {
-           res.render('error', {message: "Error", error: err});
+          res.render('error', {message: "Error", error: err});
         } else if (guide){
-          console.log(guide);
-          
           req.session.guide = guide;
-          res.redirect('/');
           req.flash('success',`환영합니다! ${user.name}`);
-      }});
-  }});
+          res.redirect('/');
+        }});}
+  }}));
 }));
 
+// 관리자, 가이드,유저 일때 구현해야함.(함수로 분리하기)
 
 router.get('/signout', function(req, res, next) {
   delete req.session.user;
