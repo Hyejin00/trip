@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const catchErrors = require('../lib/async-error');
 const User = require('../models/user');
+const Guide = require('../models/guide');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.session.user);
-  
   res.render('index');
 });
 
@@ -13,7 +13,7 @@ router.get('/signin', function(req,res,next){
   res.render('signin');
 });
 
-router.post('/signin', function(req,res,next){
+router.post('/signin', catchErrors(async(req, res, next) =>{
   User.findOne({email: req.body.email}, function(err, user) {
     if (err) {
       res.render('error', {message: "Error", error: err});
@@ -22,12 +22,19 @@ router.post('/signin', function(req,res,next){
       res.redirect('back');
     } else {
       req.session.user = user;
-      req.flash('success',`환영합니다! ${user.name}`);
-      console.log(user);
-      res.redirect('/');
-    }
-  });
-});
+      Guide.findOne({user: user._id}, function(err, guide) {
+        if (err) {
+           res.render('error', {message: "Error", error: err});
+        } else if (guide){
+          console.log(guide);
+          
+          req.session.guide = guide;
+          res.redirect('/');
+          req.flash('success',`환영합니다! ${user.name}`);
+      }});
+  }});
+}));
+
 
 router.get('/signout', function(req, res, next) {
   delete req.session.user;

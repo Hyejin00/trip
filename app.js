@@ -61,6 +61,7 @@ app.use(flash());
 
 app.use(function(req,res,next){
   res.locals.currentUser = req.session.user;
+  res.locals.currentGuide = req.session.guide;
   res.locals.flashMessages = req.flash();
   next();
 });

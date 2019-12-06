@@ -48,26 +48,29 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   res.redirect('/');
 }));
 
-router.get('/:id', function(req, res, next){
-  Guide.findOne({user:req.params.id}, catchErrors(async(err, guide) =>{
-    if (err) {
-      return next(err);
-    }
-    if (guide) {
-      res.render('guide/edit',{guide:guide});
-    }
-  }));
-});
+router.get('/:id', catchErrors(async(req, res, next) =>{
+  const guide = await Guide.findById(req.params.id);
+  res.render('guide/edit',{guide:guide});
+}));
 
-router.post('/:id',function(req,res,next){
-  Guide.findOne({user:req.params.id}, catchErrors(async(err, guide) =>{
-    if (err) {
-      return next(err);
-    }
-    if (guide) {
-      res.redirect(`/guide/${req.params.id}`);
-    }
-  }));
-});
+router.put('/:id',catchErrors(async(req, res, next) =>{
+  const guide = await Guide.findById(req.params.id);
+  console.log(guide);
+  
+  if (!guide) {
+    return res.redirect('back');
+  }
+  guide.profile_photo = req.body.guide_photo;
+  guide.tele = req.body.tel;
+  guide.kakao_id = req.body.kakao_id;
+  guide.profile = req.body.guide_profile;
+  guide.name = req.body.guide_name;
+
+  await guide.save();
+  res.redirect(`/guides/${req.params.id}`);
+}));
+
+router.get('/offer/:id',);
+router.get('/guides/offer',);
 
 module.exports = router;

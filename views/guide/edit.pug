@@ -1,9 +1,15 @@
 extends ../layout
 
+block hero-unit
+  nav.nav.nav-pills.nav-justified
+      a.nav-link.active(href=`/guides/${currentGuide._id}`) 정보관리
+      a.nav-link(href=`/guides/offer/${currentGuide._id}`) 나의 상품 목록
+      a.nav-link(href=`/guides/offer`) 상품등록
+
 block content
   .container.d-flex.flex-column
     h1.main-title 정보관리
-    form(action=`/guides/${guide.id}`, method='POST')
+    form(action=`/guides/${currentGuide._id}?_method=put`, method='POST')
       .form-group
         label(for='guide_photo') 프로필 사진
         input.form-control#guide_photo(type='text', name='guide_photo', value = guide.profile_photo)
@@ -12,7 +18,7 @@ block content
         input.form-control#guide_name(type='text', name='guide_name', value = guide.name)
       .form-group
         label(for='guide_profile') 프로필
-        input.form-control#guide_profile(type='text', value = guide.profile)
+        input.form-control#guide_profile(type='text',name = 'guide_profile', value = guide.profile)
       .form-group
         label(for='kakao_id') 카카오 아이디
         input.form-control#kakao_id(type='text', name='kakao_id', value = guide.kakao_id)
