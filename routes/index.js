@@ -14,24 +14,27 @@ router.get('/signin', function(req,res,next){
 });
 
 router.post('/signin', catchErrors(async(req, res, next) =>{
-  await User.findOne({email: req.body.email}, catchErrors(async(err, user) =>{
-    if (err) {
-      res.render('error', {message: "Error", error: err});
-    } else if (!user || user.password !== req.body.password) {
-      req.flash('danger','아이디 또는 비밀번호가 맞지않습니다.');
+  var user = await User.findOne({email: req.body.email});
+  if(user){
+    if (!user || user.password !== req.body.password) {
+      req.flash('danger',`아이디 또는 비밀번호가 맞지않습니다.`);
       res.redirect('back');
-    } else {
+    }else{
       req.session.user = user;
       if(user.role === 'guide'){
-        await Guide.findOne({user: user._id}, function(err, guide) {
-        if (err) {
-          res.render('error', {message: "Error", error: err});
-        } else if (guide){
-          req.session.guide = guide;
-          req.flash('success',`환영합니다! ${user.name}`);
-          res.redirect('/');
-        }});}
-  }}));
+        var guide = await Guide.findOne({user: user._id});
+        req.session.guide = guide;
+      }
+      if(user.role === 'manager'){
+
+      }
+      req.flash('success',`환영합니다! ${user.name}`);
+      res.redirect('/');
+    }
+  }else{
+    req.flash('danger',`아이디 또는 비밀번호가 맞지않습니다.`);
+    res.redirect('back');
+  }
 }));
 
 // 관리자, 가이드,유저 일때 구현해야함.(함수로 분리하기)
