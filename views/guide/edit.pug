@@ -2,14 +2,14 @@ extends ../layout
 
 block hero-unit
   nav.nav.nav-pills.nav-justified
-    a.nav-link.active(href=`/guides/${currentGuide._id}`) 정보관리
-    a.nav-link(href=`/guides/offer/${currentGuide._id}`) 나의 상품 목록
-    a.nav-link(href='/guides/offer') 상품등록
+    a.nav-link.active(href=`/guides/info`) 정보관리
+    a.nav-link(href=`/guides/offer`) 나의 상품 목록
+    a.nav-link(href='/guides/offer/new') 상품등록
 
 block content
   .container.d-flex.flex-column
     h1.main-title 정보관리
-    form(action=`/guides/${currentGuide._id}?_method=put`, method='POST')
+    form(action=`/guides/info?_method=put`, method='POST')
       .form-group
         label(for='guide_photo') 프로필 사진
         input.form-control#guide_photo(type='text', name='guide_photo', value = guide.profile_photo)

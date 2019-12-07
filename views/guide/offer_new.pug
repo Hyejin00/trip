@@ -2,10 +2,51 @@ extends ../layout
 
 block hero-unit
   nav.nav.nav-pills.nav-justified
-    a.nav-link(href=`/guides/${currentGuide._id}`) 정보관리
-    a.nav-link(href=`/guides/offer/${currentGuide._id}`) 나의 상품 목록
-    a.nav-link.active(href='/guides/offer') 상품등록
+    a.nav-link(href=`/guides/info`) 정보관리
+    a.nav-link(href=`/guides/offer`) 나의 상품 목록
+    a.nav-link.active(href='/guides/offer/new') 상품등록
 
 block content
-  .container.d-flex.flex-column
-    p test1
+  .container
+    nav(aria-label='breadcrumb')
+      ol.breadcrumb
+        li.breadcrumb-item.active(aria-current='page') 정보 등록
+        li.breadcrumb-item 코스 등록
+    h2 정보 등록
+    form(action = "guides/offer/new", method = 'post')
+      .place 장소
+        .form-group
+          .input-group.mb-3
+            .input-group-prepend
+              label.input-group-text(for='country') 나라
+            select#country.custom-select(name = 'contry')
+              option(value='korea' selected) 한국
+              option(value='jongkouk') 중국
+              option(value='japan') 기타
+        .form-group
+          .input-group.mb-3
+            .input-group-prepend
+              label.input-group-text(for='city') 도시
+            select#city.custom-select(name = 'city')
+              option(value='korea' selected) 한국
+              option(value='jongkouk') 중국
+              option(value='japan') 일본
+      .form-group
+        label(for='title') 여행 제목
+        input.form-control#title(type='text', name='title')
+      .form-group
+        label(for='main_photo') 여행 사진
+        input.form-control#main_photo(type='text', name='main_photo')
+      .form-group
+        label(for='discription') 여행 설명
+        textarea.form-control#discription( name='discription', rows = '5',placeholder = "여행 상품 설명을 적어주세요.")
+      .form-group
+        label(for='price') 여행 가격
+        .input-group.mb-3
+          input.form-control(type='text', name = "price",placeholder="1인당 가격을 적어주세요.", aria-label="price", aria-describedby='price')
+          .input-group-append
+            span#price.input-group-text 원
+      .form-group
+        label(for='max_people') 최대 인원
+        input.form-control#max_people(type='text', name='max_people')
+      button.btn.btn-primary(type='submit') 코스 등록으로 넘어가기

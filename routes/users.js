@@ -15,7 +15,6 @@ router.post('/new', catchErrors(async(req, res, next) =>{
     }
     if (user) {
       req.flash('danger','이미 가입되어있는 회원입니다.');
-      
       return res.redirect('back');
     }
     var newUser = new User({
@@ -24,7 +23,7 @@ router.post('/new', catchErrors(async(req, res, next) =>{
       password: req.body.password
     });
 
-    await newUser.save(function(err) {
+    newUser.save(function(err) {
       if (err) {
         return next(err);
       } else {
@@ -35,8 +34,14 @@ router.post('/new', catchErrors(async(req, res, next) =>{
   }));
 }));
 
-router.get('/edit',function(req,res){
+router.get('/:id/edit',function(req,res){
   res.render('user/edit');
 });
+
+router.delete('/:id',catchErrors(async(req, res, next) =>{
+  await User.findOneAndRemove({_id: req.params.id});
+  req.flash('success', 'Deleted Successfully.');
+  res.redirect('managers/user');
+}));
 
 module.exports = router;

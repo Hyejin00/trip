@@ -2,9 +2,9 @@ extends ../layout
 
 block hero-unit
   nav.nav.nav-pills.nav-justified
-    a.nav-link(href=`/guides/${currentGuide._id}`) 정보관리
-    a.nav-link.active(href=`/guides/offer/${currentGuide._id}`) 나의 상품 목록
-    a.nav-link(href='/guides/offer') 상품등록
+    a.nav-link(href=`/guides/info`) 정보관리
+    a.nav-link.active(href=`/guides/offer`) 나의 상품 목록
+    a.nav-link(href='/guides/offer/new') 상품등록
 
 block content
   .container.d-flex.flex-column

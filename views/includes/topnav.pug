@@ -17,20 +17,20 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                     li.nav-item
                       a.nav-link(href='/guides/new') guide registration
                     li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}`) Mypage
+                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
                     li.nav-item
                       a.nav-link(href='/signout') Signout
                   when 'guide'
                     li.nav-item
-                      a.nav-link(href=`/guides/${currentGuide._id}`) Guidepage
+                      a.nav-link(href=`guides/${currentGuide._id}`) Guidepage
                     li.nav-item
-                      a.nav-link(href=`/users/edit`) Mypage
+                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
                     li.nav-item
                       a.nav-link(href='/signout') Signout
                   when 'manager'
                     li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}`) managerpage
+                      a.nav-link(href='/managers/user') managerpage
                     li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}`) Mypage
+                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
                     li.nav-item
                       a.nav-link(href='/signout') Signout

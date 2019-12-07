@@ -25,9 +25,6 @@ router.post('/signin', catchErrors(async(req, res, next) =>{
         var guide = await Guide.findOne({user: user._id});
         req.session.guide = guide;
       }
-      if(user.role === 'manager'){
-
-      }
       req.flash('success',`환영합니다! ${user.name}`);
       res.redirect('/');
     }
@@ -41,6 +38,9 @@ router.post('/signin', catchErrors(async(req, res, next) =>{
 
 router.get('/signout', function(req, res, next) {
   delete req.session.user;
+  if(req.session.guide){
+    delete req.session.guide;
+  }
   req.flash('info','성공적으로 로그아웃 되었습니다')
   res.redirect('/');
 });

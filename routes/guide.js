@@ -27,11 +27,7 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     tele: req.body.tel,
     profile_photo: req.body.guide_photo
   });
-  await newGuide.save(function(err) {
-    if (err) {
-      return next(err);
-    }
-  });
+  await newGuide.save();
   const user = await User.findById(current_user._id);
   if(!user){
     req.flash('danger', 'please sign in again.');
@@ -48,23 +44,54 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   res.redirect('/');
 }));
 
-router.get('/offer',function(req,res,next){
-  res.render('guide/offer_new');
-});
+//상품목록
 
-router.get('/offer/:id',function(req,res,next){
+router.get('/offer',function(req,res,next){
   res.render('guide/offer');
 });
 
-router.get('/:id', catchErrors(async(req, res, next) =>{
+//place 정보 넘기기
+router.get('/offer/new',function(req,res,next){
+  res.render('guide/offer_new');
+});
+//관리지ㅏ
+// var newPlace = new newPlace({
+//   contry: req.body.contry,
+//   city: req.body.city
+// });
+router.post('/offer/new',catchErrors(async(req, res, next) =>{
+  var place = await Place.findOne({contry: req.body.contry, city: req.body.city});
+
+  var newTour = new newTour({
+    guide: req.session.guide._id,
+    place: place._id,
+    title:req.body.title,
+    description: req.body.description,
+    main_photo: req.body.main_photo,
+    price: req.body.price,
+    num_read: 0,
+    num_wishlist: 0 ,
+    max_num_people: 0
+  });
+
+  await newTour.save(function(err,tour){
+    res.redirect(`/guides/offer/${tour._id}`);
+  });
+}));
+
+router.get('/offer/:id',function(req,res,next){
+  res.render('guide/offer_course_new',{tour_id: req.params.id});
+});
+
+//가이드 정보관리
+
+router.get('/:id', catchErrors(async(req, res, next) =>{ 
   const guide = await Guide.findById(req.params.id);
   res.render('guide/edit',{guide:guide});
 }));
 
 router.put('/:id',catchErrors(async(req, res, next) =>{
   const guide = await Guide.findById(req.params.id);
-  console.log(guide);
-  
   if (!guide) {
     return res.redirect('back');
   }

@@ -1,0 +1,25 @@
+extends ../layout
+
+block hero-unit
+  nav.nav.nav-pills.nav-justified
+    a.nav-link.active(href=`/managers/user`) 유저관리
+    a.nav-link(href=`/managers/offer`) 상품 관리
+    a.nav-link(href='') 화면 꾸미기
+
+block content
+  .container.d-flex.flex-column
+    nav(aria-label='breadcrumb')
+      ol.breadcrumb
+        li.breadcrumb-item.active(aria-current='page')
+          a(href="#") 나라 관리
+        li.breadcrumb-item
+          a(href="#") 상품 관리
+    h1.main-title 나라 관리
+    form(action=`/managers/offer_place`, method='POST')
+      .form-group
+        label(for='contry') 나라
+        input.form-control#contry(type='text', name='contry')
+      .form-group
+        label(for='city') 도시
+        input.form-control#city(type='text', name='city')
+      button.btn.btn-primary(type='submit') 저장

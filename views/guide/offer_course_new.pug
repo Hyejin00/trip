@@ -1,0 +1,18 @@
+extends ../layout
+
+block hero-unit
+  nav.nav.nav-pills.nav-justified
+    a.nav-link(href=`/guides/info`) 정보관리
+    a.nav-link(href=`/guides/offer`) 나의 상품 목록
+    a.nav-link.active(href='/guides/offer/new') 상품등록
+
+block content
+  .container
+    nav(aria-label='breadcrumb')
+      ol.breadcrumb
+        li.breadcrumb-item 정보 등록
+        li.breadcrumb-item.active(aria-current='page') 코스 등록
+    h2 코스 등록
+    form(action = `guides/offer/${tour_id}`, method = 'post')
+      
+      button.btn.btn-primary(type='submit') 등록하기
