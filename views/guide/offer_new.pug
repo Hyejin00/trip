@@ -19,18 +19,16 @@ block content
           .input-group.mb-3
             .input-group-prepend
               label.input-group-text(for='country') 나라
-            select#country.custom-select(name = 'contry')
-              option(value='korea' selected) 한국
-              option(value='jongkouk') 중국
-              option(value='japan') 기타
+            select#country.custom-select(name = 'contry', onchange= 'Onchange()')
+              each place in contry
+                option(value=place)=place
+              option(value='etc' selected) 기타
         .form-group
           .input-group.mb-3
             .input-group-prepend
               label.input-group-text(for='city') 도시
             select#city.custom-select(name = 'city')
-              option(value='korea' selected) 한국
-              option(value='jongkouk') 중국
-              option(value='japan') 일본
+              option(value='etc' selected) 기타
       .form-group
         label(for='title') 여행 제목
         input.form-control#title(type='text', name='title')
@@ -50,3 +48,4 @@ block content
         label(for='max_people') 최대 인원
         input.form-control#max_people(type='text', name='max_people')
       button.btn.btn-primary(type='submit') 코스 등록으로 넘어가기
+      script(src='/javascripts/interactcity.js')

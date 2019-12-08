@@ -8,4 +8,16 @@ block hero-unit
 
 block content
   .container.d-flex.flex-column
-    p test
+    .place 장소
+      .form-group
+        .input-group.mb-3
+          .input-group-prepend
+            label.input-group-text(for='country') 나라
+          select#country.custom-select(name = 'contry')
+            option(value='etc' selected) 기타
+      .form-group
+        .input-group.mb-3
+          .input-group-prepend
+            label.input-group-text(for='city') 도시
+          select#city.custom-select(name = 'city')
+            option(value='etc' selected) 기타

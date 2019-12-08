@@ -3,6 +3,7 @@ var router = express.Router();
 const catchErrors = require('../lib/async-error');
 const User = require('../models/user');
 const Guide = require('../models/guide');
+const Place = require('../models/place');
 
 function needAuth(req, res, next) {
   if (req.session.user) {
@@ -44,21 +45,32 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   res.redirect('/');
 }));
 
-//상품목록
+//나의상품목록
 
-router.get('/offer',function(req,res,next){
+router.get('/offer',catchErrors(async(req, res, next) =>{
   res.render('guide/offer');
-});
+}));
 
-//place 정보 넘기기
-router.get('/offer/new',function(req,res,next){
-  res.render('guide/offer_new');
-});
-//관리지ㅏ
-// var newPlace = new newPlace({
-//   contry: req.body.contry,
-//   city: req.body.city
-// });
+//Tour 만들기
+router.get('/offer/new',catchErrors(async(req, res, next) =>{
+  const place = await Place.find().distinct('contry');
+  console.log(place);
+  res.render('guide/offer_new',{contry:place});
+}));
+
+router.get('/city_option',catchErrors(async(req, res, next) =>{
+  let c = req.query.c ? req.query.c : '';
+  if(!c){
+    return res.json([]);
+  }
+  const city = await Place.find({contry:c}).distinct('city');
+  console.log(city);
+  console.log('-----in router');
+  
+  
+  res.json(city);
+}));
+
 router.post('/offer/new',catchErrors(async(req, res, next) =>{
   var place = await Place.findOne({contry: req.body.contry, city: req.body.city});
 
@@ -78,6 +90,8 @@ router.post('/offer/new',catchErrors(async(req, res, next) =>{
     res.redirect(`/guides/offer/${tour._id}`);
   });
 }));
+
+//코스 등록하기
 
 router.get('/offer/:id',function(req,res,next){
   res.render('guide/offer_course_new',{tour_id: req.params.id});
