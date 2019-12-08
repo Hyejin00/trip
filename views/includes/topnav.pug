@@ -1,6 +1,6 @@
 nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
   a.navbar-brand(href="/")
-    img.d-inline-block.align-top(src="../images/airplane.png", alt="my trip icon",width="30" ,height="30")
+    img.d-inline-block.align-top(src="/images/airplane.png", alt="my trip icon",width="30" ,height="30")
     |My trip
   button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
     span.navbar-toggler-icon
@@ -13,24 +13,24 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
           a.nav-link(href='/users/new') Signup
       else
         case currentUser.role
-                  when 'user'
-                    li.nav-item
-                      a.nav-link(href='/guides/new') guide registration
-                    li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
-                    li.nav-item
-                      a.nav-link(href='/signout') Signout
-                  when 'guide'
-                    li.nav-item
-                      a.nav-link(href=`guides/${currentGuide._id}`) Guidepage
-                    li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
-                    li.nav-item
-                      a.nav-link(href='/signout') Signout
-                  when 'manager'
-                    li.nav-item
-                      a.nav-link(href='/managers/user') managerpage
-                    li.nav-item
-                      a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
-                    li.nav-item
-                      a.nav-link(href='/signout') Signout
+          when 'user'
+            li.nav-item
+              a.nav-link(href='/guides/new') guide registration
+            li.nav-item
+              a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
+            li.nav-item
+              a.nav-link(href='/signout') Signout
+          when 'guide'
+            li.nav-item
+              a.nav-link(href=`guides/${currentGuide._id}`) Guidepage
+            li.nav-item
+              a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
+            li.nav-item
+              a.nav-link(href='/signout') Signout
+          when 'manager'
+            li.nav-item
+              a.nav-link(href='/managers/user') managerpage
+            li.nav-item
+              a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
+            li.nav-item
+              a.nav-link(href='/signout') Signout

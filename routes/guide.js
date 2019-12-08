@@ -4,6 +4,7 @@ const catchErrors = require('../lib/async-error');
 const User = require('../models/user');
 const Guide = require('../models/guide');
 const Place = require('../models/place');
+const Tour = require('../models/tour');
 
 function needAuth(req, res, next) {
   if (req.session.user) {
@@ -73,22 +74,24 @@ router.get('/city_option',catchErrors(async(req, res, next) =>{
 
 router.post('/offer/new',catchErrors(async(req, res, next) =>{
   var place = await Place.findOne({contry: req.body.contry, city: req.body.city});
-
-  var newTour = new newTour({
+  console.log(place);
+  
+  var newTour = new Tour({
     guide: req.session.guide._id,
     place: place._id,
-    title:req.body.title,
+    title: req.body.title,
     description: req.body.description,
     main_photo: req.body.main_photo,
     price: req.body.price,
     num_read: 0,
     num_wishlist: 0 ,
-    max_num_people: 0
+    max_num_people: req.body.max_people
   });
 
-  await newTour.save(function(err,tour){
-    res.redirect(`/guides/offer/${tour._id}`);
-  });
+  const save_tour = await newTour.save();
+  console.log(save_tour);
+  res.redirect(`/guides/offer/${save_tour._id}`);
+  
 }));
 
 //코스 등록하기
@@ -96,6 +99,10 @@ router.post('/offer/new',catchErrors(async(req, res, next) =>{
 router.get('/offer/:id',function(req,res,next){
   res.render('guide/offer_course_new',{tour_id: req.params.id});
 });
+
+router.post('/offer/:id',catchErrors(async(req, res, next) =>{
+  
+}));
 
 //가이드 정보관리
 

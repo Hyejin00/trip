@@ -13,7 +13,7 @@ block content
         li.breadcrumb-item.active(aria-current='page') 정보 등록
         li.breadcrumb-item 코스 등록
     h2 정보 등록
-    form(action = "guides/offer/new", method = 'post')
+    form(action = "/guides/offer/new", method = 'post')
       .place 장소
         .form-group
           .input-group.mb-3
@@ -36,8 +36,8 @@ block content
         label(for='main_photo') 여행 사진
         input.form-control#main_photo(type='text', name='main_photo')
       .form-group
-        label(for='discription') 여행 설명
-        textarea.form-control#discription( name='discription', rows = '5',placeholder = "여행 상품 설명을 적어주세요.")
+        label(for='description') 여행 설명
+        textarea.form-control#description( name='description', rows = '5',placeholder = "여행 상품 설명을 적어주세요.")
       .form-group
         label(for='price') 여행 가격
         .input-group.mb-3
