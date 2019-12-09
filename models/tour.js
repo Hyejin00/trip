@@ -2,7 +2,8 @@ var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 var schema = new Schema({
     guide:{type: Schema.Types.ObjectId, ref:'Guide'},
-    place:{type: Schema.Types.ObjectId, ref:'Place'},
+    contry:String,
+    city:String,
     title:{type: String, required: true, trim:true},
     description:{type: String, required: true},
     main_photo:{type:String},

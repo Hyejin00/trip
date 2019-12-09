@@ -5,7 +5,7 @@ function Onchange(){
   console.log('-------interact');
 
   $.ajax({
-      url:'/guides/city_option',
+      url:'/tours/city_option',
       data: {c:contry},
       success: function(data){
         data.push('기타');

@@ -1,0 +1,17 @@
+nav.nav.nav-pills.nav-justified
+  if(currentUser)
+    case currentUser.role
+      when 'user'
+        a.nav-link(href=`/guides/${currentGuide._id}`) 정보관리
+        a.nav-link(href=`/users/order`) 나의 예약 목록
+        a.nav-link(href='/guides/offer') 장바구니
+      when 'guide'
+        a.nav-link(href=`/guides/info`) 정보관리
+        a.nav-link(href=`/guides/offer/list`) 나의 상품 목록
+        a.nav-link(href='/tours/new') 상품등록
+      when 'manager'
+        a.nav-link(href=`/managers/user`) 유저관리
+        a.nav-link(href=`/managers/offer`) 상품 관리
+        a.nav-link(href='') 화면 꾸미기
+
+    

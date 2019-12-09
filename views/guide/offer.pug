@@ -1,23 +1,29 @@
 extends ../layout
 
-block hero-unit
-  nav.nav.nav-pills.nav-justified
-    a.nav-link(href=`/guides/info`) 정보관리
-    a.nav-link.active(href=`/guides/offer`) 나의 상품 목록
-    a.nav-link(href='/guides/offer/new') 상품등록
-
 block content
   .container.d-flex.flex-column
-    .place 장소
-      .form-group
-        .input-group.mb-3
-          .input-group-prepend
-            label.input-group-text(for='country') 나라
-          select#country.custom-select(name = 'contry')
-            option(value='etc' selected) 기타
-      .form-group
-        .input-group.mb-3
-          .input-group-prepend
-            label.input-group-text(for='city') 도시
-          select#city.custom-select(name = 'city')
-            option(value='etc' selected) 기타
+    h2.main-title tour list
+
+    table.table.table-hover
+      thead
+        tr
+          th Place
+          th Name
+          th order
+          th Created At
+          th
+      tbody
+        each tour in tours
+          tr
+            -var place = `${tour.contry}>${tour.city}`;
+            td= place
+            td
+              a(href=`/tours/show/${tour._id}`)= tour.title
+            td 1
+            td= moment(tour.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            td
+              a.btn.btn-sm.btn-outline-secondary(href=`/tours/edit/${tour._id}`) 
+                | #[i.fa.fa-pencil] Edit
+              | 
+              a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/tours/${tour._id}?_method=DELETE`)
+                | #[i.fa.fa-trash] Delete

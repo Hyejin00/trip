@@ -34,6 +34,24 @@ router.post('/new', catchErrors(async(req, res, next) =>{
   }));
 }));
 
+//주문 리스트
+router.get('/order',catchErrors(async(req, res, next) =>{
+  res.render();
+}));
+
+//주문 생성
+router.post('/new/order/:id',catchErrors(async(req, res, next) =>{
+  const newOrder = new Order({
+    order: req.session.user._id,
+    num_people: req.body.num_people,
+    tour: req.params.id,
+    guide: req.body.guide
+  });
+
+  await newOrder.save();
+  res.redirect('/users/order');
+}));
+
 router.get('/:id/edit',function(req,res){
   res.render('user/edit');
 });

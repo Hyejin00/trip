@@ -5,6 +5,7 @@ const User = require('../models/user');
 const Guide = require('../models/guide');
 const Place = require('../models/place');
 const Tour = require('../models/tour');
+const Course = require('../models/course');
 
 function needAuth(req, res, next) {
   if (req.session.user) {
@@ -48,71 +49,22 @@ router.post('/new',catchErrors(async(req, res, next) =>{
 
 //나의상품목록
 
-router.get('/offer',catchErrors(async(req, res, next) =>{
-  res.render('guide/offer');
-}));
+router.get('/offer/list',catchErrors(async(req, res, next) =>{
+  const tour = await Tour.find({guide:req.session.guide._id}).populate('place');
+  console.log(tour);
 
-//Tour 만들기
-router.get('/offer/new',catchErrors(async(req, res, next) =>{
-  const place = await Place.find().distinct('contry');
-  console.log(place);
-  res.render('guide/offer_new',{contry:place});
-}));
-
-router.get('/city_option',catchErrors(async(req, res, next) =>{
-  let c = req.query.c ? req.query.c : '';
-  if(!c){
-    return res.json([]);
-  }
-  const city = await Place.find({contry:c}).distinct('city');
-  console.log(city);
-  console.log('-----in router');
-  
-  
-  res.json(city);
-}));
-
-router.post('/offer/new',catchErrors(async(req, res, next) =>{
-  var place = await Place.findOne({contry: req.body.contry, city: req.body.city});
-  console.log(place);
-  
-  var newTour = new Tour({
-    guide: req.session.guide._id,
-    place: place._id,
-    title: req.body.title,
-    description: req.body.description,
-    main_photo: req.body.main_photo,
-    price: req.body.price,
-    num_read: 0,
-    num_wishlist: 0 ,
-    max_num_people: req.body.max_people
-  });
-
-  const save_tour = await newTour.save();
-  console.log(save_tour);
-  res.redirect(`/guides/offer/${save_tour._id}`);
-  
-}));
-
-//코스 등록하기
-
-router.get('/offer/:id',function(req,res,next){
-  res.render('guide/offer_course_new',{tour_id: req.params.id});
-});
-
-router.post('/offer/:id',catchErrors(async(req, res, next) =>{
-  
+  res.render('guide/offer',{tours:tour});
 }));
 
 //가이드 정보관리
 
-router.get('/:id', catchErrors(async(req, res, next) =>{ 
-  const guide = await Guide.findById(req.params.id);
+router.get('/info', catchErrors(async(req, res, next) =>{ 
+  const guide = await Guide.findById(req.session.guide._id);
   res.render('guide/edit',{guide:guide});
 }));
 
-router.put('/:id',catchErrors(async(req, res, next) =>{
-  const guide = await Guide.findById(req.params.id);
+router.put('/info',catchErrors(async(req, res, next) =>{
+  const guide = await Guide.findById(req.session.guide._id);
   if (!guide) {
     return res.redirect('back');
   }
@@ -123,7 +75,7 @@ router.put('/:id',catchErrors(async(req, res, next) =>{
   guide.name = req.body.guide_name;
 
   await guide.save();
-  res.redirect(`/guides/${req.params.id}`);
+  res.redirect(`/guides/info`);
 }));
 
 module.exports = router;
