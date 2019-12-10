@@ -29,9 +29,6 @@ router.get('/city_option',catchErrors(async(req, res, next) =>{
   }));
 
 router.post('/new',catchErrors(async(req, res, next) =>{
-    var place = await Place.findOne({contry: req.body.contry, city: req.body.city});
-    console.log(place);
-    
     var newTour = new Tour({
       guide: req.session.guide._id,
       contry:req.body.contry,
@@ -85,13 +82,66 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     res.render('tour/show',{item:tour});
   }));
   //-------수정
-  router.get('/edit/:id',catchErrors(async(req, res, next) =>{
-    res.redirect(`/tours/show/${req.params.id}`);
+
+  router.get('/edit_tour/:id',catchErrors(async(req, res, next) =>{
+    const tour = await Tour.findOne({_id: req.params.id});
+    const place = await Place.find().distinct('contry');
+    const city = await Place.find({contry:tour.contry}).distinct('city');
+    console.log(tour);
+    console.log(place);
+    
+    res.render('tour/tour_edit',{tour:tour, place:place, pre_city:city});
+  }));
+
+  router.put('/edit_tour/:id',catchErrors(async(req, res, next) =>{
+    const tour= await Tour.findById(req.params.id);
+    if (!tour) {
+      return res.redirect('back');
+    }
+    tour.contry = req.body.contry;
+    tour.city = req.body.city;
+    tour.title = req.body.title;
+    tour.description = req.body.description;
+    tour.name = req.body.title;
+    tour.main_photo= req.body.main_photo;
+    tour.price= req.body.price;
+    tour.max_num_people= req.body.max_people;
+  
+    await tour.save();
+    res.redirect(`/tours/edit_course/${req.params.id}`);
+  }));
+
+  router.get('/edit_course/:id',catchErrors(async(req, res, next) =>{
+    const course = await Course.findOne({tour: req.params.id});
+    res.render('tour/course_edit',{coursies:course});
+  }));
+
+  router.put('/edit_course',catchErrors(async(req, res, next) =>{
+    const course = await Course.findOne({tour: req.params.id});
+    if(!course){
+      return res.redirect('/guides/offer/list');
+    }else{
+      var edit_course_items = [];
+      for(var i = 0; i<req.body.title.length; i++){
+        var edit_item = {
+          title:req.body.title[i],
+          require_hour: req.body.hour[i],
+          require_minute: req.body.minute[i],
+          description: req.body.description[i],
+          photo: req.body.photo[i]
+        }
+        edit_course_items.push(edit_item);
+      }
+    }
+    course.course_items = edit_course_items;
+    await course.save();
+    res.redirect(`/guides/offer/list`);
   }));
 
   //삭제
 
   router.delete('/:id',catchErrors(async(req, res, next) =>{
+    await Course.findOneAndRemove({tour:req.params.id});
     await Tour.findOneAndRemove({_id:req.params.id});
     req.flash('success', 'Deleted Successfully.');
     res.redirect('/guides/offer/list');

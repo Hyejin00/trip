@@ -22,7 +22,7 @@ block content
             td 1
             td= moment(tour.createdAt).format('YYYY-MM-DD HH:mm:ss')
             td
-              a.btn.btn-sm.btn-outline-secondary(href=`/tours/edit/${tour._id}`) 
+              a.btn.btn-sm.btn-outline-secondary(href=`/tours/edit_tour/${tour._id}`) 
                 | #[i.fa.fa-pencil] Edit
               | 
               a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/tours/${tour._id}?_method=DELETE`)

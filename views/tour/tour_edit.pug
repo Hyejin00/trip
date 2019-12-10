@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+  .container
+    nav(aria-label='breadcrumb')
+      ol.breadcrumb
+        li.breadcrumb-item.active(aria-current='page') 정보 등록
+        li.breadcrumb-item 코스 등록
+    h2 정보 등록
+    form(action = `/tours/edit_tour/${tour._id}?_method=put`, method = 'post')
+      .place 장소
+        .form-group
+          .input-group.mb-3
+            .input-group-prepend
+              label.input-group-text(for='country') 나라
+            select#country.custom-select(name = 'contry', onchange= 'Onchange()')
+              each contry in place
+                if contry == tour.contry
+                    option(value=contry, selected)=contry 
+                else
+                    option(value=contry)=contry
+              option(value='etc') 기타
+        .form-group
+          .input-group.mb-3
+            .input-group-prepend
+              label.input-group-text(for='city') 도시
+            select#city.custom-select(name = 'city')
+              each city in pre_city
+                if city == tour.city
+                    option(value=city selected)= city
+                else
+                    option(value=contry)=contry
+      .form-group
+        label(for='title') 여행 제목
+        input.form-control#title(type='text', name='title', value= tour.title)
+      .form-group
+        label(for='main_photo') 여행 사진
+        input.form-control#main_photo(type='text', name='main_photo', value= tour.main_photo)
+      .form-group
+        label(for='description') 여행 설명
+        textarea.form-control#description( name='description', rows = '5',placeholder = "여행 상품 설명을 적어주세요.")= tour.description
+      .form-group
+        label(for='price') 여행 가격
+        .input-group.mb-3
+          input.form-control(type='text', name = "price",placeholder="1인당 가격을 적어주세요.", aria-label="price", aria-describedby='price', value= tour.price)
+          .input-group-append
+            span#price.input-group-text 원
+      .form-group
+        label(for='max_people') 최대 인원
+        input.form-control#max_people(type='text', name='max_people', value=tour.max_num_people)
+      button.btn.btn-primary(type='submit') 코스 등록으로 넘어가기
+      script(src='/javascripts/interactcity.js')

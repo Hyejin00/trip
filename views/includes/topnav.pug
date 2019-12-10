@@ -17,19 +17,44 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
             li.nav-item
               a.nav-link(href='/guides/new') guide registration
             li.nav-item
-              a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
+              .dropdown.mr-1
+                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | Mypage
+                .dropdown-menu(aria-labelledby='dropdownMenuOffset')
+                  a.dropdown-item(href=`#`) 정보관리
+                  a.dropdown-item(href=`/users/order`) 나의 예약 목록
+                  a.dropdown-item(href='#') 장바구니
             li.nav-item
               a.nav-link(href='/signout') Signout
           when 'guide'
             li.nav-item
-              a.nav-link(href=`guides/info`) Guidepage
+              .dropdown.mr-1
+                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | Guidepage
+                .dropdown-menu(aria-labelledby='dropdownMenuOffset')
+                  a.dropdown-item(href=`/guides/info`) 정보관리
+                  a.dropdown-item(href=`/guides/offer/list`) 나의 상품 목록
+                  a.dropdown-item(href='/tours/new') 상품등록
             li.nav-item
-              a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
+              .dropdown.mr-1
+                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | Mypage
+                .dropdown-menu(aria-labelledby='dropdownMenuOffset')
+                  a.dropdown-item(href=`/guides/info`) 정보관리
+                  a.dropdown-item(href=`/users/order`) 나의 예약 목록
+                  a.dropdown-item(href='/tours/new') 장바구니
             li.nav-item
               a.nav-link(href='/signout') Signout
           when 'manager'
             li.nav-item
               a.nav-link(href='/managers/user') managerpage
+              .dropdown.mr-1
+                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | managerpage
+                .dropdown-menu(aria-labelledby='dropdownMenuOffset')
+                  a.dropdown-item(href='/managers/user') 유저 관리
+                  a.dropdown-item(href=`/managers/offer`) 상품 관리
+                  a.dropdown-item(href='#') 화면 꾸미기
             li.nav-item
               a.nav-link(href=`/users/${currentUser._id}/edit`) Mypage
             li.nav-item
