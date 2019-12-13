@@ -10,12 +10,14 @@ var mongoose   = require('mongoose');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var flash = require('connect-flash');
+var passport = require('passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var guideRouter = require('./routes/guide');
 var managerRouter = require('./routes/manager');
 var tourRouter = require('./routes/tour');
+var passportConfig = require('./lib/passport-config');
 
 var app = express();
 
@@ -34,6 +36,7 @@ mongoose.connection.on('error', console.error);
 
 // public 디렉토리에 있는 내용은 static하게 service하도록.
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 //icon
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -61,8 +64,14 @@ app.use(session({
 }));
 app.use(flash());
 
+
+//passport 초기화
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport);
+
 app.use(function(req,res,next){
-  res.locals.currentUser = req.session.user;
+  res.locals.currentUser = req.user;
   res.locals.currentGuide = req.session.guide;
   res.locals.flashMessages = req.flash();
   next();
@@ -73,6 +82,7 @@ app.use('/users', usersRouter);
 app.use('/guides', guideRouter);
 app.use('/managers',managerRouter);
 app.use('/tours',tourRouter);
+require('./routes/auth')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

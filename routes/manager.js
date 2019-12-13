@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const catchErrors = require('../lib/async-error');
-const User = require('../models/user');
-const Place = require('../models/place');
+var User = require('../models/user');
+var Place = require('../models/place');
+var needAuth = require('../lib/needauth');
 
 router.get('/user',catchErrors(async(req,res,next)=>{
   const users = await User.find({});
@@ -10,22 +11,12 @@ router.get('/user',catchErrors(async(req,res,next)=>{
 }));
 
 router.get('/offer', catchErrors(async(req,res,next)=>{
-  // const contry = await Place.find().distinct('contry');
-  // var place = {};
-  // for(var index_contry in contry){
-  //   var city = await Place.find({contry:contry[index_contry]});
-  //   var cities = [];
-  //   for(var index_city in city){
-  //     cities[index_city] = city[index_city].city; 
-  //   }
-  //   place[contry[index_contry]] = cities; 
-  // }
   var place = await Place.find({});
   console.log(place);
   //시간 javascript 참고
   res.render('manager/offer', {place:place});
 }));
-
+//상품관리- 나라 도시 추가 파트
 router.post('/offer_place', catchErrors(async(req,res,next)=>{
   const place_t = await Place.find({contry:req.body.contry});
   

@@ -5,8 +5,10 @@ block content
     h1.main-title 가이드 가입
     form(action='/guides/new', method='POST')
       .form-group
-        label(for='guide_photo') 프로필 사진
-        input.form-control#guide_photo(type='text', name='guide_photo', placeholder='guide_photo')
+        label(for='file') 프로필 사진
+         input.form-control-file#file(type="file")
+         input#url.form-control(type="text", readonly="readonly", name="img", value="")
+         img#preview.img-fluid(src="https://dummyimage.com/200x200/ccc/fff")
       .form-group
         label(for='guide_name') 가이드명
         input.form-control#guide_name(type='text', name='guide_name', placeholder='Your name')
@@ -23,3 +25,4 @@ block content
 
       //-  enctype = "multipart/form-data"
       //- 이미지 업로드 처리하기
+  script(src="/javascripts/image.js")

@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const catchErrors = require('../lib/async-error');
-const User = require('../models/user');
-const Guide = require('../models/guide');
-const Place = require('../models/place');
-const Tour = require('../models/tour');
-const Course = require('../models/course');
+var Place = require('../models/place');
+var Tour = require('../models/tour');
+var Course = require('../models/course');
+var needAuth = require('../lib/needauth');
 
 //app에 추가하기
 //tour 만들기
@@ -115,7 +114,7 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     const course = await Course.findOne({tour: req.params.id});
     res.render('tour/course_edit',{coursies:course});
   }));
-
+//코스 에디트가 안됨
   router.put('/edit_course',catchErrors(async(req, res, next) =>{
     const course = await Course.findOne({tour: req.params.id});
     if(!course){

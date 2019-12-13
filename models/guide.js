@@ -5,7 +5,7 @@ var schema = new Schema({
     name: {type: String, required:true, trim:true},
     profile:{type:String, required:true},
     kakao_id:{type:String},
-    tele:{type:Number, unique: true},
+    tele:{type:Number},
     profile_photo:{type:String},
     createdAt: {type:Date, default:Date.now}
 });

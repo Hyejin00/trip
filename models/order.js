@@ -8,6 +8,6 @@ var schema = new Schema({
     createdAt: {type:Date, default:Date.now}
 });
 
-var User = mongoose.model('User', schema);
+var Order = mongoose.model('Order', schema);
 
-module.exports = User;
+module.exports = Order;
