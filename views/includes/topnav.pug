@@ -21,9 +21,9 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                 button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
                   | Mypage
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
-                  a.dropdown-item(href=`#`) 정보관리
+                  a.dropdown-item(href=`/users/info`) 정보관리
                   a.dropdown-item(href=`/users/order`) 나의 예약 목록
-                  a.dropdown-item(href='#') 장바구니
+                  a.dropdown-item(href='/users/wish') 장바구니
             li.nav-item
               a.nav-link(href='/signout') Signout
           when 'guide'
@@ -34,15 +34,16 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href=`/guides/info`) 정보관리
                   a.dropdown-item(href=`/guides/offer/list`) 나의 상품 목록
+                  a.dropdown-item(href='/guides/order') 예약관리
                   a.dropdown-item(href='/tours/new') 상품등록
             li.nav-item
               .dropdown.mr-1
                 button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
                   | Mypage
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
-                  a.dropdown-item(href=`/guides/info`) 정보관리
+                  a.dropdown-item(href=`/users/info`) 정보관리
                   a.dropdown-item(href=`/users/order`) 나의 예약 목록
-                  a.dropdown-item(href='/tours/new') 장바구니
+                  a.dropdown-item(href='/users/wish') 장바구니
             li.nav-item
               a.nav-link(href='/signout') Signout
           when 'manager'

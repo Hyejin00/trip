@@ -7,12 +7,17 @@ html(lang="en")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
     script(src='https://code.jquery.com/jquery-3.2.1.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js')
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
   body
     block top-nav
       include ./includes/topnav
+      nav.nav.nav-pills.nav-justified
+        a.nav-link.active(href="/") home
+        a.nav-link(href="/tours/display") guide tour
     if flashMessages
       each texts, type in flashMessages
         .alert.alert-dismissible.fade.show(class=`alert-${type}`)
@@ -21,9 +26,6 @@ html(lang="en")
           button.close(type='button', data-dismiss='alert', aria-label='close')
             span(aria-hidden='true') &times;
     block hero-unit
-      nav.nav.nav-pills.nav-justified
-        a.nav-link.active(href="#") 메인
-        a.nav-link(href="#") Longer nav link
     block content
     block footer
       include ./includes/footer

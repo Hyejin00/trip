@@ -3,6 +3,7 @@ var router = express.Router();
 const catchErrors = require('../lib/async-error');
 var User = require('../models/user');
 var Guide = require('../models/guide');
+var Order = require('../models/order');
 var Tour = require('../models/tour');
 var needAuth = require('../lib/needauth');
 
@@ -35,6 +36,19 @@ router.post('/new',catchErrors(async(req, res, next) =>{
   req.user = user;
   req.flash('success','가이드 등록이 완료되었습니다.');
   res.redirect('/');
+}));
+
+//예약 관리
+router.get('/order',catchErrors(async(req, res, next) =>{
+  const orders = await Order.find({guide:req.session.guide._id}).populate('order tour');
+  console.log(orders);
+  
+  res.render('guide/order_list',{orders:orders});
+}));
+
+router.delete('/order/:id',catchErrors(async(req, res, next) =>{
+  await Order.findOneAndRemove({_id: req.params.id});
+  res.redirect('/guides/order');
 }));
 
 //나의상품목록

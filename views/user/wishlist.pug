@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  .container.d-flex.flex-row
+    each wish in wishlist
+      .product
+        a(href=`/tours/show/${wish.tour._id}`)
+          div.card(style="width: 18rem;")
+            img.card-img-top(src=wish.tour.main_photo, alt="tour main photo")
+            div.card-body
+              h5.card-title=wish.tour.title
+              p.card-textSome= wish.tour.description
+

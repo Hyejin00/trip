@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  .container.d-flex.flex-column
+    h2.main-title tour list
+    table.table.table-hover
+      thead
+        tr
+          th 투어 상품
+          th 예약 인원
+          th 예약 날짜
+          th 가격
+          th
+      tbody
+        each order in orders
+          form(action=`/users/order/edit/${order._id}?_method=put`, method="post")
+            tr
+              td
+                a(href=`/tours/show/${order.tour._id}`)=order.tour.title
+              td
+                input(type="text", name="num_people",value=order.num_people)
+              td
+                input#datepicker(type="text", name='order_date',value=order.order_date)
+              td= order.price
+              td 
+                button.btn.btn-primary(type='submit') 예약수정
+      script.
+        $(function() {
+          $("#datepicker").datepicker();
+        });

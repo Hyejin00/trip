@@ -15,8 +15,10 @@ block content
           label.input-group-text(for='inputGroupSelect02') 명
       p#price= item.tour.price
       p#total_price
+      input#datepicker(type="text", name='date')
       button.btn.btn-primary.btn-lg(type='button' onclick= 'mutiply()') 금액 조회하기
       input(type="hidden", name="guide", value= item.tour.guide._id)
+      input(type="hidden", name="price", value= item.tour.price)
       button(type="submit") 예약하기
 
     h4 상품 설명
@@ -33,4 +35,11 @@ block content
     img(src=item.tour.guide.profile_photo, alt="guide photo")
     p= item.tour.guide.name
     p= item.tour.guide.profile
+    a.btn.btn-info.btn-lg(href=`/users/wish/${item.tour._id}`)
+      span.glyphicon.glyphicon-shopping-cart
+        | Shopping Cart
   script(src="/javascripts/calculator.js")
+  script.
+    $(function() {
+      $("#datepicker").datepicker();
+    });

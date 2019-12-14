@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .container.d-flex.flex-column
+    each order in orders
+      h2.main-title=order.tour.title
+      table.table.table-hover
+        thead
+          tr
+            th 예약자명
+            th 예약 인원
+            th 예약 날짜
+            th 가격
+            th
+        tbody
+          tr
+            td= order.order.name
+            td= order.num_people
+            td= order.order_date
+            td= order.price
+            td
+              a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/guides/order/${order._id}?_method=DELETE`)
+                | #[i.fa.fa-trash] 예약삭제

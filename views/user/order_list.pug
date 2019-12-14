@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  .container.d-flex.flex-column
+    h2.main-title tour list
+    table.table.table-hover
+      thead
+        tr
+          th 투어 상품
+          th 예약 인원
+          th 예약 날짜
+          th 가격
+          th
+      tbody
+        each order in orders
+          tr
+            td
+              a(href=`/tours/show/${order.tour._id}`)=order.tour.title
+            td= order.num_people
+            td= order.order_date
+            td= order.price
+            td
+              a.btn.btn-sm.btn-outline-secondary(href=`/users/order/edit`) 
+                | #[i.fa.fa-pencil] 예약수정
+              | 
+              a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/order/${order._id}?_method=DELETE`)
+                | #[i.fa.fa-trash] 예약취소

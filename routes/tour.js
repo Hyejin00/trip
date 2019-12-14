@@ -80,6 +80,15 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     console.log(tour);
     res.render('tour/show',{item:tour});
   }));
+
+  //----------상품 dp
+
+  router.get('/display',catchErrors(async(req, res, next) =>{
+    const tours = await Tour.find({});
+    console.log(tours);
+    
+    res.render('tour/display',{tours:tours});
+  }));
   //-------수정
 
   router.get('/edit_tour/:id',catchErrors(async(req, res, next) =>{
@@ -114,9 +123,9 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     const course = await Course.findOne({tour: req.params.id});
     res.render('tour/course_edit',{coursies:course});
   }));
-//코스 에디트가 안됨
-  router.put('/edit_course',catchErrors(async(req, res, next) =>{
-    const course = await Course.findOne({tour: req.params.id});
+
+  router.put('/edit_course/:id',catchErrors(async(req, res, next) =>{
+    const course = await Course.findById(req.params.id);
     if(!course){
       return res.redirect('/guides/offer/list');
     }else{
