@@ -34,6 +34,8 @@ router.get('/s3', function(req,res,next){
       console.log(err);
       return res.json({err: err});
     }
+    console.log(data);
+    
     res.json({
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${uuid}/${filename}`

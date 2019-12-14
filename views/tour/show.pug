@@ -3,8 +3,7 @@ extends ../layout
 block content
   .container.d-flex.flex-column
     h2.main-title=item.tour.title
-
-    p= item.tour.main_photo
+    img(src=item.tour.main_photo, alt="guide photo")
     p 인원을 선택하세요.
     form(action=`/users/new/order/${item.tour._id}`, method="post")
       .input-group.mb-3
@@ -28,10 +27,10 @@ block content
       -time = `${course.require_hour} 시간 ${course.require_minute}분 소요`;
       h4= course.title
       span= time
-
+      img(src=course.photo, alt="course photo")
       p= course.description
     h4 가이드 소개
-    p= item.tour.guide.profile_photo
+    img(src=item.tour.guide.profile_photo, alt="guide photo")
     p= item.tour.guide.name
     p= item.tour.guide.profile
   script(src="/javascripts/calculator.js")

@@ -8,7 +8,7 @@ block content
         label(for='guide_photo') 프로필 사진
         img#preview.img-fluid(src=guide.profile_photo, alt="profile photo")
         input.form-control-file#file(type="file")
-        input#url.form-control(type="text", readonly="readonly", name="img", value="")
+        input#url.form-control(type="text", readonly="readonly", name="guide_photo", value="")
       .form-group
         label(for='guide_name') 가이드명
         input.form-control#guide_name(type='text', name='guide_name', value = guide.name)
@@ -22,5 +22,5 @@ block content
         label(for='tel') 전화번호
         input.form-control#tel(type='tel', name='tel', value = guide.tele)
       button.btn.btn-primary(type='submit') 저장 
-  script(src="/javascripts/image.js")
+  script(src="/javascripts/image_edit.js")
     

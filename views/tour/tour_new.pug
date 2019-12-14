@@ -28,7 +28,9 @@ block content
         input.form-control#title(type='text', name='title')
       .form-group
         label(for='main_photo') 여행 사진
-        input.form-control#main_photo(type='text', name='main_photo')
+        input.form-control-file#file(type="file")
+        input#url.form-control(type="text", readonly="readonly", name="main_photo", value="")
+        img#preview.img-fluid(src="https://dummyimage.com/200x200/ccc/fff")
       .form-group
         label(for='description') 여행 설명
         textarea.form-control#description( name='description', rows = '5',placeholder = "여행 상품 설명을 적어주세요.")
@@ -43,3 +45,4 @@ block content
         input.form-control#max_people(type='text', name='max_people')
       button.btn.btn-primary(type='submit') 코스 등록으로 넘어가기
       script(src='/javascripts/interactcity.js')
+      script(src="/javascripts/image.js")
