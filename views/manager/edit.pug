@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .container
+    h1.main-title 유저 정보관리
+    form(action=`/managers/user/${user._id}`, method='POST')
+      .form-group
+        label(for='name') 이름
+        input.form-control#guide_name(type='text', name='name', value = user.name)
+      .form-group
+        label(for='user_profile') 생성일자
+        p= user.createdAt
+      .form-group
+        label(for='role') 권한
+        select#role.custom-select(name = 'role')
+          option(value='user' selected) user
+          option(value='guide') guide
+          option(value='manager') manager
+      button.btn.btn-primary(type='submit') 저장 

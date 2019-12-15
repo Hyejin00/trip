@@ -56,19 +56,6 @@ router.get('/order',catchErrors(async(req, res, next) =>{
   res.render('user/order_list',{orders:orders});
 }));
 
-router.get('/order/edit',catchErrors(async(req, res, next) =>{
-  const orders = await Order.find({order:req.user._id}).populate('tour');
-  res.render('user/order_list_edit',{orders:orders});
-}));
-
-router.put('/order/edit/:id',catchErrors(async(req, res, next) =>{
-  const order = await Order.findById(req.params.id);
-  order.num_people=req.body.num_people;
-  order.order_date=req.body.order_date;
-  await order.save();
-  res.redirect('/users/order');
-}));
-
 router.delete('/order/:id',catchErrors(async(req, res, next) =>{
   await Order.findOneAndRemove({_id: req.params.id});
   res.redirect('/users/order');
@@ -93,6 +80,8 @@ router.post('/new/order/:id',catchErrors(async(req, res, next) =>{
 
 router.get('/wish',catchErrors(async(req, res, next) =>{
   const wishs = await Wishlist.find({user:req.user._id}).populate('tour');
+  console.log(wishs);
+  
   res.render('user/wishlist',{wishlist:wishs});
 }));
 
@@ -107,12 +96,10 @@ router.get('/wish/:id',catchErrors(async(req, res, next) =>{
   res.redirect(`/tours/show/${req.params.id}`);
 }));
 
-//매니저리스트
-
 router.delete('/:id',catchErrors(async(req, res, next) =>{
   await User.findOneAndRemove({_id: req.params.id});
   req.flash('success', 'Deleted Successfully.');
-  res.redirect('managers/user');
+  res.redirect('/signout');
 }));
 
 module.exports = router;

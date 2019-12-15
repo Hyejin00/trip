@@ -39,7 +39,7 @@ router.post('/new',catchErrors(async(req, res, next) =>{
 }));
 
 //예약 관리
-router.get('/order',catchErrors(async(req, res, next) =>{
+router.get('/order', needAuth,catchErrors(async(req, res, next) =>{
   const orders = await Order.find({guide:req.session.guide._id}).populate('order tour');
   console.log(orders);
   
@@ -51,9 +51,23 @@ router.delete('/order/:id',catchErrors(async(req, res, next) =>{
   res.redirect('/guides/order');
 }));
 
+router.get('/order/edit', needAuth,catchErrors(async(req, res, next) =>{
+  const orders = await Order.find({order:req.user._id}).populate('tour');
+  res.render('guide/order_list_edit',{orders:orders});
+}));
+
+router.put('/order/edit/:id',catchErrors(async(req, res, next) =>{
+  const order = await Order.findById(req.params.id).populate('tour');
+  order.num_people=req.body.num_people;
+  order.order_date=req.body.order_date;
+  order.price = order.tour.price *req.body.num_people;
+  await order.save();
+  res.redirect('/guides/order');
+}));
+
 //나의상품목록
 
-router.get('/offer/list',catchErrors(async(req, res, next) =>{
+router.get('/offer/list', needAuth,catchErrors(async(req, res, next) =>{
   const tour = await Tour.find({guide:req.session.guide._id}).populate('place');
   console.log(tour);
 
@@ -62,7 +76,7 @@ router.get('/offer/list',catchErrors(async(req, res, next) =>{
 
 //가이드 정보관리
 
-router.get('/info', catchErrors(async(req, res, next) =>{ 
+router.get('/info', needAuth, catchErrors(async(req, res, next) =>{ 
   const guide = await Guide.findById(req.session.guide._id);
   res.render('guide/edit',{guide:guide});
 }));

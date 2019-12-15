@@ -143,6 +143,9 @@ router.post('/new',catchErrors(async(req, res, next) =>{
     }
     course.course_items = edit_course_items;
     await course.save();
+    if(req.user.role ==='manager'){
+      return res.redirect('/managers/offer');
+    }
     res.redirect(`/guides/offer/list`);
   }));
 

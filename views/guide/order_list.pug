@@ -19,5 +19,8 @@ block content
             td= order.order_date
             td= order.price
             td
+              a.btn.btn-sm.btn-outline-secondary(href=`/guides/order/edit`) 
+                | #[i.fa.fa-pencil] 예약수정
+              |
               a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/guides/order/${order._id}?_method=DELETE`)
                 | #[i.fa.fa-trash] 예약삭제

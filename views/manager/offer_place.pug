@@ -2,12 +2,6 @@ extends ../layout
 
 block content
   .container.d-flex.flex-column
-    nav(aria-label='breadcrumb')
-      ol.breadcrumb
-        li.breadcrumb-item.active(aria-current='page')
-          a(href="#") 나라 관리
-        li.breadcrumb-item
-          a(href="#") 상품 관리
     h1.main-title 나라 관리
     form(action=`/managers/offer_place`, method='POST')
       .form-group
@@ -17,4 +11,14 @@ block content
         label(for='city') 도시
         input.form-control#city(type='text', name='city')
       button.btn.btn-primary(type='submit') 저장
+    table.table.table-hover
+      thead
+        tr
+          th 나라
+          th 도시
+      tbody
+        each place in places
+          tr
+            td= place.contry
+            td= place.city
       

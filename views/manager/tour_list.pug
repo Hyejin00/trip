@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  .container.d-flex.flex-column
+    h2.main-title tour list
+    table.table.table-hover
+      thead
+        tr
+          th 투어 상품
+          th 가이드 이름
+          th 생성일자
+          th 가격
+          th
+      tbody
+        each tour in tours
+          tr
+            td
+              a(href=`/tours/edit_tour/${tour._id}`)=tour.title
+            td= tour.title
+            td= tour.guide.name
+            td= tour.createAt
+            td= tour.price
+            td
+              a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/managers/offer/${tour._id}?_method=DELETE`)
+                | #[i.fa.fa-trash] 상품삭제
