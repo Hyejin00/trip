@@ -7,12 +7,28 @@ var Order = require('../models/order');
 var Tour = require('../models/tour');
 var needAuth = require('../lib/needauth');
 
+function validateForm(form) {
+  
+  if (!form.guide_name || !form.guide_profile|| !form.tel) {
+    return '이름, 프로필, 전화번호를 입력해주세요.';
+  }
+  if(isNaN(parseInt(form.tel))){
+    return '전화번호는 숫자로 적어주세요.'
+  }
+
+  return null;
+}
 
 router.get('/new', needAuth, function(req, res) {
     res.render('guide/new');
   });
 // { type: Schema.Types.ObjectId, ref: 'User' }
-router.post('/new',catchErrors(async(req, res, next) =>{
+router.post('/new',needAuth,catchErrors(async(req, res, next) =>{
+  var err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
   var newGuide = new Guide({
     user:req.user._id,
     name: req.body.guide_name,
@@ -57,6 +73,14 @@ router.get('/order/edit', needAuth,catchErrors(async(req, res, next) =>{
 }));
 
 router.put('/order/edit/:id',catchErrors(async(req, res, next) =>{
+  if(!req.body.num_people||!req.body.order_date){
+    req.flash('danger', '인원, 날짜는 필수 항목입니다.');
+    return res.redirect('back');
+  }
+  if(isNaN(parseInt(req.body.num_people))){
+    req.flash('danger', '인원은 숫자만 기입해주세요.');
+    return res.redirect('back');
+  }
   const order = await Order.findById(req.params.id).populate('tour');
   order.num_people=req.body.num_people;
   order.order_date=req.body.order_date;
@@ -82,6 +106,11 @@ router.get('/info', needAuth, catchErrors(async(req, res, next) =>{
 }));
 
 router.put('/info',catchErrors(async(req, res, next) =>{
+  var err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
   const guide = await Guide.findById(req.session.guide._id);
   if (!guide) {
     return res.redirect('back');

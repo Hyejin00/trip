@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container.d-flex.flex-column
-    h2.main-title tour list
+    h2.main-title 예약 관리
     table.table.table-hover
       thead
         tr
@@ -13,7 +13,7 @@ block content
           th
       tbody
         each order in orders
-          form(action=`/users/order/edit/${order._id}?_method=put`, method="post")
+          form(action=`/guides/order/edit/${order._id}?_method=put`, method="post")
             tr
               td
                 a(href=`/tours/show/${order.tour._id}`)=order.tour.title

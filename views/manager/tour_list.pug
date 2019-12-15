@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container.d-flex.flex-column
-    h2.main-title tour list
+    h2.main-title 상품 관리
     table.table.table-hover
       thead
         tr
@@ -18,7 +18,7 @@ block content
               a(href=`/tours/edit_tour/${tour._id}`)=tour.title
             td= tour.title
             td= tour.guide.name
-            td= tour.createAt
+            td= moment(tour.createAt).format('YYYY-MM-DD HH:mm:ss')
             td= tour.price
             td
               a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/managers/offer/${tour._id}?_method=DELETE`)

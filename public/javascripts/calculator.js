@@ -5,6 +5,7 @@ function mutiply(){
     
     if (!isNaN(numPeople)) {
       var price = numPeople * perPrice;
+      price = '총' + price + '원';
       $('#total_price').text(price);
     }
 }

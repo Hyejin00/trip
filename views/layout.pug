@@ -16,8 +16,8 @@ html(lang="en")
     block top-nav
       include ./includes/topnav
       nav.nav.nav-pills.nav-justified
-        a.nav-link.active(href="/") home
-        a.nav-link(href="/tours/display") guide tour
+        a.nav-link(href="/") 메인
+        a.nav-link(href="/tours/display") 가이드 투어
     if flashMessages
       each texts, type in flashMessages
         .alert.alert-dismissible.fade.show(class=`alert-${type}`)

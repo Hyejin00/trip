@@ -2,14 +2,14 @@ extends ../layout
 
 block content
   .container
-    h1.main-title 정보관리
+    h2.main-title 정보관리
     form(action=`/users/info/${user._id}`, method='POST')
       .form-group
         label(for='name') 이름
         input.form-control#guide_name(type='text', name='name', value = user.name)
       .form-group
         label(for='user_profile') 생성일자
-        p= user.createdAt
+        p= moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')
       button.btn.btn-primary(type='submit') 저장
       a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/users/${user._id}?_method=DELETE`)
         | #[i.fa.fa-trash] 회원탈퇴

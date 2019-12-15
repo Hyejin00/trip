@@ -8,11 +8,11 @@ block content
         li.breadcrumb-item 코스 등록
     h2 정보 등록
     form(action = "/tours/new", method = 'post')
-      .place 장소
+      .place.d-flex.flex-row
         .form-group
           .input-group.mb-3
             .input-group-prepend
-              label.input-group-text(for='country') 나라
+              label.input-group-text.p(for='country') 나라
             select#country.custom-select(name = 'contry', onchange= 'Onchange()')
               each place in contry
                 option(value=place)=place
@@ -20,7 +20,7 @@ block content
         .form-group
           .input-group.mb-3
             .input-group-prepend
-              label.input-group-text(for='city') 도시
+              label.input-group-text.p(for='city') 도시
             select#city.custom-select(name = 'city')
               option(value='etc' selected) 기타
       .form-group

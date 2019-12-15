@@ -1,4 +1,4 @@
-nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+nav.navbar.navbar-expand-lg
   a.navbar-brand(href="/")
     img.d-inline-block.align-top(src="/images/airplane.png", alt="my trip icon",width="30" ,height="30")
     |My trip
@@ -8,29 +8,29 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
     ul.navbar-nav.ml-auto
       if (!currentUser)
         li.nav-item
-          a.nav-link(href='/signin') Signin
+          a.nav-link(href='/signin') 로그인
         li.nav-item
-          a.nav-link(href='/users/new') Signup
+          a.nav-link(href='/users/new') 회원가입
       else
         case currentUser.role
           when 'user'
             li.nav-item
-              a.nav-link(href='/guides/new') guide registration
+              a.nav-link(href='/guides/new') 가이드 등록
             li.nav-item
               .dropdown.mr-1
-                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
-                  | Mypage
+                button#dropdownMenuOffset.btn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | 마이페이지
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href=`/users/info`) 정보관리
                   a.dropdown-item(href=`/users/order`) 나의 예약 목록
                   a.dropdown-item(href='/users/wish') 장바구니
             li.nav-item
-              a.nav-link(href='/signout') Signout
+              a.nav-link(href='/signout') 로그아웃
           when 'guide'
             li.nav-item
               .dropdown.mr-1
-                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
-                  | Guidepage
+                button#dropdownMenuOffset.btn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | 가이드 페이지
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href=`/guides/info`) 정보관리
                   a.dropdown-item(href=`/guides/offer/list`) 나의 상품 목록
@@ -38,30 +38,30 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                   a.dropdown-item(href='/tours/new') 상품등록
             li.nav-item
               .dropdown.mr-1
-                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
-                  | Mypage
+                button#dropdownMenuOffset.btn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | 마이페이지
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href=`/users/info`) 정보관리
                   a.dropdown-item(href=`/users/order`) 나의 예약 목록
                   a.dropdown-item(href='/users/wish') 장바구니
             li.nav-item
-              a.nav-link(href='/signout') Signout
+              a.nav-link(href='/signout') 로그아웃
           when 'manager'
             li.nav-item
               .dropdown.mr-1
-                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
-                  | managerpage
+                button#dropdownMenuOffset.btn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | 매니저 페이지
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href='/managers/user') 유저 관리
                   a.dropdown-item(href=`/managers/offer_place`) 장소 관리
                   a.dropdown-item(href='/managers/offer') 상품 관리
             li.nav-item
               .dropdown.mr-1
-                button#dropdownMenuOffset.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
-                  | Mypage
+                button#dropdownMenuOffset.btn.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', data-offset='10,20')
+                  | 마이페이지
                 .dropdown-menu(aria-labelledby='dropdownMenuOffset')
                   a.dropdown-item(href=`/users/info`) 정보관리
                   a.dropdown-item(href=`/users/order`) 나의 예약 목록
                   a.dropdown-item(href='/users/wish') 장바구니
             li.nav-item
-              a.nav-link(href='/signout') Signout
+              a.nav-link(href='/signout') 로그아웃

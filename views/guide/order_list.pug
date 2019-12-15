@@ -16,7 +16,7 @@ block content
           tr
             td= order.order.name
             td= order.num_people
-            td= order.order_date
+            td= moment(order.order_date).format('YYYY-MM-DD HH:mm:ss')
             td= order.price
             td
               a.btn.btn-sm.btn-outline-secondary(href=`/guides/order/edit`) 

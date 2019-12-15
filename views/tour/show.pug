@@ -1,25 +1,32 @@
 extends ../layout
 
 block content
-  .container.d-flex.flex-column
-    h2.main-title=item.tour.title
-    img(src=item.tour.main_photo, alt="guide photo")
-    p 인원을 선택하세요.
-    form(action=`/users/new/order/${item.tour._id}`, method="post")
-      .input-group.mb-3
-        -var n = 1;
-        select#inputGroupSelect02.custom-select(name = 'num_people')
-          while n < item.tour.max_num_people+1
-            option(value= n)= n++
-        .input-group-append
-          label.input-group-text(for='inputGroupSelect02') 명
-      p#price= item.tour.price
-      p#total_price
-      input#datepicker(type="text", name='date')
-      button.btn.btn-primary.btn-lg(type='button' onclick= 'mutiply()') 금액 조회하기
-      input(type="hidden", name="guide", value= item.tour.guide._id)
-      input(type="hidden", name="price", value= item.tour.price)
-      button(type="submit") 예약하기
+  .container.d-flex.flex-column.show
+    h2.main-title.show_title=item.tour.title
+    img.img-fluid(src=item.tour.main_photo, alt="main tour photo")
+    .order_form
+      p 인원을 선택하세요.
+      form(action=`/users/new/order/${item.tour._id}`, method="post")
+        .row_show.d-flex.flex-row
+          .input-group.mb-3
+            -var n = 1;
+            span 인원 : 
+            select#inputGroupSelect02.custom-select(name = 'num_people')
+              while n < item.tour.max_num_people+1
+                option(value= n)= n++
+            .input-group-append
+              label.input-group-text(for='inputGroupSelect02') 명
+          span 가격 : 
+          p#price= item.tour.price
+          span 원
+        p#total_price
+        .row.d-flex.flex-row
+          span 날짜 : 
+          input#datepicker(type="text", name='date')
+          button.btn.btn-primary(type='button' onclick= 'mutiply()') 금액 조회하기
+        input(type="hidden", name="guide", value= item.tour.guide._id)
+        input(type="hidden", name="price", value= item.tour.price)
+        button.btn.btn-primary(type="submit") 예약하기
 
     h4 상품 설명
     p= item.tour.description
@@ -27,13 +34,17 @@ block content
     h4 코스 소개
     each course in item.course_items
       -time = `${course.require_hour} 시간 ${course.require_minute}분 소요`;
-      h4= course.title
-      span= time
-      img(src=course.photo, alt="course photo")
-      p= course.description
+      .course_item
+        .course_body
+          img.img-thumbnail.rounded.float-left(src=course.photo, alt="course photo")
+          .course_description
+            h5= course.title
+            span= time
+            p= course.description
     h4 가이드 소개
-    img(src=item.tour.guide.profile_photo, alt="guide photo")
-    p= item.tour.guide.name
+    .guide_name.d-flex.flex-row
+      img(src=item.tour.guide.profile_photo, alt="guide photo")
+      p= item.tour.guide.name
     p= item.tour.guide.profile
     a.btn.btn-info.btn-lg(href=`/users/wish/${item.tour._id}`)
       span.glyphicon.glyphicon-shopping-cart
