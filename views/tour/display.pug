@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  .container.d-flex.flex-row
+  .container.d-flex.flex-row.flex-wrap
     each tour in tours
       .product
         a(href=`/tours/show/${tour._id}`)

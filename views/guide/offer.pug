@@ -9,7 +9,6 @@ block content
         tr
           th Place
           th Name
-          th order
           th Created At
           th
       tbody
@@ -19,7 +18,6 @@ block content
             td= place
             td
               a(href=`/tours/show/${tour._id}`)= tour.title
-            td 1
             td= moment(tour.createdAt).format('YYYY-MM-DD HH:mm:ss')
             td
               a.btn.btn-sm.btn-outline-secondary(href=`/tours/edit_tour/${tour._id}`) 

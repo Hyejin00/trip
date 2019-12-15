@@ -126,6 +126,8 @@ label,p,span{
 }
 .img-thumbnail{
   width: 50%;
+  width: 16.1rem;
+  height: 12.1rem;
 }
 .course_body{
   display: flex;
@@ -152,6 +154,10 @@ h5{
 }
 .guide_name p{
   font-size:1.1rem;
+}
+.card img{
+  width: 17.9rem;
+  height: 11.8rem;
 }
 @media screen and (max-width: 768px) {
   .btn-primary{

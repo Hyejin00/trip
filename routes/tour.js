@@ -89,15 +89,23 @@ router.post('/new/:id',catchErrors(async(req, res, next) =>{
     req.flash('danger', '코스이름을 적어주세요');
     return res.redirect('back');
   }
-  for(var i = 0; i<req.body.title.length; i++){
+  if(Array.isArray(req.body.title)){
+    for(var i = 0; i<req.body.title.length; i++){
+      var new_item = {
+        title:req.body.title[i],
+        require_hour: req.body.hour[i],
+        require_minute: req.body.minute[i],
+        description: req.body.description[i],
+        photo: req.body.photo[i]}
+      new_course_items.push(new_item);}
+  }else{
     var new_item = {
-      title:req.body.title[i],
-      require_hour: req.body.hour[i],
-      require_minute: req.body.minute[i],
-      description: req.body.description[i],
-      photo: req.body.photo[i]
-    }
-    new_course_items.push(new_item);
+      title:req.body.title,
+      require_hour: req.body.hour,
+      require_minute: req.body.minute,
+      description: req.body.description,
+      photo: req.body.photo}
+      new_course_items.push(new_item);
   }
   var newCourse = new Course({
     tour: req.params.id,
@@ -183,15 +191,23 @@ router.put('/edit_course/:id',catchErrors(async(req, res, next) =>{
       req.flash('danger', '코스이름을 적어주세요');
       return res.redirect('back');
     }
-    for(var i = 0; i<req.body.title.length; i++){
-      var edit_item = {
-        title:req.body.title[i],
-        require_hour: req.body.hour[i],
-        require_minute: req.body.minute[i],
-        description: req.body.description[i],
-        photo: req.body.photo[i]
-      }
-      edit_course_items.push(edit_item);
+    if(req.body.title.length>1){
+      for(var i = 0; i<req.body.title.length; i++){
+        var new_item = {
+          title:req.body.title[i],
+          require_hour: req.body.hour[i],
+          require_minute: req.body.minute[i],
+          description: req.body.description[i],
+          photo: req.body.photo[i]}
+        new_course_items.push(new_item);}
+    }else{
+      var new_item = {
+        title:req.body.title,
+        require_hour: req.body.hour,
+        require_minute: req.body.minute,
+        description: req.body.description,
+        photo: req.body.photo}
+        new_course_items.push(new_item);
     }
   }
   course.course_items = edit_course_items;
