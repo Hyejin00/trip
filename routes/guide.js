@@ -44,14 +44,9 @@ router.post('/new',needAuth,catchErrors(async(req, res, next) =>{
     return res.redirect('/');
   }
   user.role = 'guide';
-  await user.save(function(err) {
-    if (err) {
-      return next(err);
-    }
-  });
-  req.user = user;
-  req.flash('success','가이드 등록이 완료되었습니다.');
-  res.redirect('/');
+  await user.save();
+  req.flash('success','가이드 등록이 완료되었습니다. 다시 로그인 해주세요.');
+  res.redirect('/signout');
 }));
 
 //예약 관리
