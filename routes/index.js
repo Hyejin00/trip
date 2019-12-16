@@ -1,16 +1,32 @@
 var express = require('express');
 var router = express.Router();
 const catchErrors = require('../lib/async-error');
+var Tour = require('../models/tour');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log(req.user);
-  console.log(req.session.guide);
+
+router.get('/',catchErrors(async(req, res, next) =>{
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  var query = {};
+  const term = req.query.term;
+  if (term) {
+    query = {$or: [
+      {title: {'$regex': term, '$options': 'i'}},
+      {description: {'$regex': term, '$options': 'i'}},
+      {contry: {'$regex': term, '$options': 'i'}}
+    ]};
+  }
+  const tours = await Tour.paginate(query, {
+    sort: {createdAt: -1},  
+    page: page, limit: limit
+  });
+  console.log(tours);
   
-  
-  res.render('index');
-});
+  res.render('index', {tours: tours, term: term, query: req.query});
+}));
 
 const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;

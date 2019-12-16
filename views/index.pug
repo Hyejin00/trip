@@ -1,9 +1,27 @@
 extends layout
 
+include ./includes/_paginate
+
 block hero-unit
   .jumbotron
     p.display-4 어디로 가세요?
-    form.form-inline
-      input.form-control.lr-sm-2(type="search", placeholder="Search", aria-label="Search")
-      button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Search
+    form.form-inline.search-input-group(action='/', method='GET')
+      i.fa.fa-search
+      input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
+      
 
+block content
+  .container.d-flex.flex-row.flex-wrap
+    if(tours)
+      if tours.total <= 0 
+        .alert.alert-info 검색결과가 없습니다 :)
+      else
+        each tour in tours.docs
+          .index_product
+          a(href=`/tours/show/${tour._id}`)
+            div.card(style="width: 18rem;")
+              img.card-img-top(src=tour.main_photo, alt="tour main photo")
+              div.card-body
+                h5.card-title=tour.title
+                p.card-textSome= tour.description
+        +paginate(tours, '/', query)

@@ -159,6 +159,9 @@ h5{
   width: 17.9rem;
   height: 11.8rem;
 }
+.index_product{
+  margin: .5rem;
+}
 @media screen and (max-width: 768px) {
   .btn-primary{
     width: 100%;
