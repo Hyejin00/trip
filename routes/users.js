@@ -9,6 +9,7 @@ var Wishlist = require('../models/wishlist');
 var Tour = require('../models/tour');
 var Course = require('../models/course');
 var Guide = require('../models/guide');
+var Review = require('../models/review');
 
 function validateForm(form, options) {
   var name = form.name || "";
@@ -64,6 +65,11 @@ router.post('/new', catchErrors(async(req, res, next) =>{
   req.flash('success', 'Registered successfully. Please sign in.');
   res.redirect('/');
 }));
+//리뷰 관리
+router.get('/review',needAuth ,catchErrors(async(req, res, next) =>{
+  const review = await Review.find({user:req.user}).populate('tour');
+  res.render('review',{reviews:review});
+}));
 //user 정보관리
 
 router.get('/info',needAuth ,catchErrors(async(req, res, next) =>{
@@ -84,7 +90,6 @@ router.post('/info/:id',catchErrors(async(req, res, next) =>{
   await user.save();
   res.redirect(`/users/info`);
 }));
-
 //주문 리스트
 router.get('/order',needAuth ,catchErrors(async(req, res, next) =>{
   const orders = await Order.find({order:req.user._id}).populate('tour');
@@ -133,9 +138,10 @@ router.get('/wish/:id', needAuth,catchErrors(async(req, res, next) =>{
 
 router.delete('/:id',catchErrors(async(req, res, next) =>{
   await Order.remove({order:req.params.id});
+  await Review.remove({user:req.params.id});
   await Wishlist.remove({user:req.params.id});
   if(req.user.role ==='guide'){
-    var guide = await guide.findOne({user:req.params.id});
+    var guide = await Guide.findOne({user:req.params.id});
     const tour = await Tour.find({guide:guide._id});
     if(tour){
       for(var i =0; i<tour.length; i++){

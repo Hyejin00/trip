@@ -5,6 +5,7 @@ var Place = require('../models/place');
 var Tour = require('../models/tour');
 var Course = require('../models/course');
 var Order = require('../models/order');
+var Review = require('../models/review');
 var needAuth = require('../lib/needauth');
 
 function validateForm(form) {
@@ -121,8 +122,10 @@ router.post('/new/:id',catchErrors(async(req, res, next) =>{
 
 router.get('/show/:id',catchErrors(async(req, res, next) =>{
   const tour = await Course.findOne({tour:req.params.id}).populate({path:'tour',populate:{path: 'guide'}});
-  console.log(tour);
-  res.render('tour/show',{item:tour});
+  const review = await Review.find({tour:req.params.id}).populate('user');
+  console.log(review);
+  
+  res.render('tour/show',{item:tour, reviews:review});
 }));
 
   //----------상품 dp

@@ -1,0 +1,23 @@
+extends ./layout
+
+block content
+  .container.d-flex.flex-column
+    h2.main-title 후기 관리
+    table.table.table-hover
+      thead
+        tr
+          th 투어 이름
+          th 후기 제목
+          th 생성일자
+          th
+      tbody
+        each review in reviews
+          tr
+            td
+              a(href=`/tours/show/${review.tour._id}`)=review.tour.title
+            td=review.title
+            td= moment(review.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            td
+
+              a.btn.btn-sm.need-confirm-btn.btn-outline-danger(href=`/reviews/${review._id}?_method=DELETE`)
+                | #[i.fa.fa-trash] 삭제

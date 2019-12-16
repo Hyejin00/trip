@@ -23,7 +23,6 @@ router.get('/',catchErrors(async(req, res, next) =>{
     sort: {createdAt: -1},  
     page: page, limit: limit
   });
-  console.log(tours);
   
   res.render('index', {tours: tours, term: term, query: req.query});
 }));
@@ -44,13 +43,11 @@ router.get('/s3', function(req,res,next){
     ContentType: type,
     ACL: 'public-read'
   };
-  console.log(params);
   s3.getSignedUrl('putObject', params, function(err, data) {
     if (err) {
       console.log(err);
       return res.json({err: err});
     }
-    console.log(data);
     
     res.json({
       signedRequest: data,

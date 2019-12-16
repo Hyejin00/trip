@@ -17,6 +17,7 @@ var usersRouter = require('./routes/users');
 var guideRouter = require('./routes/guide');
 var managerRouter = require('./routes/manager');
 var tourRouter = require('./routes/tour');
+var reviewRouter = require('./routes/reivew');
 var passportConfig = require('./lib/passport-config');
 
 var app = express();
@@ -82,6 +83,7 @@ app.use('/users', usersRouter);
 app.use('/guides', guideRouter);
 app.use('/managers',managerRouter);
 app.use('/tours',tourRouter);
+app.use('/reviews', reviewRouter);
 require('./routes/auth')(app, passport);
 
 // catch 404 and forward to error handler

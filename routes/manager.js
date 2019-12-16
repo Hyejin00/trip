@@ -4,7 +4,12 @@ const catchErrors = require('../lib/async-error');
 var User = require('../models/user');
 var Place = require('../models/place');
 var Tour = require('../models/tour');
+var Wishlist = require('../models/wishlist');
+var Guide = require('../models/guide');
+var Order = require('../models/order');
+var Review = require('../models/review');
 var needAuth = require('../lib/needauth');
+var Course = require('../models/course');
 
 //-----유저관리
 router.get('/user',needAuth,catchErrors(async(req,res,next)=>{
@@ -50,8 +55,9 @@ router.put('/user/:id',catchErrors(async(req,res,next)=>{
 router.delete('/:id',catchErrors(async(req,res,next)=>{
   await User.findByIdAndDelete(req.params.id);
   await Order.remove({order:req.params.id});
+  await Review.remove({user:req.params.id});
   await Wishlist.remove({user:req.params.id});
-  var guide = await guide.findOne({user:req.params.id});
+  var guide = await Guide.findOne({user:req.params.id});
   if(guide){
     const tour = await Tour.find({guide:guide._id});
     if(tour){
@@ -63,6 +69,11 @@ router.delete('/:id',catchErrors(async(req,res,next)=>{
   }
   await Guide.findOneAndDelete({user:req.params.id});
   res.redirect('/managers/user');
+}));
+//리뷰 관리
+router.get('/review',needAuth ,catchErrors(async(req, res, next) =>{
+  const review = await Review.find({}).populate('tour');
+  res.render('review',{reviews:review});
 }));
 
 //장소관리

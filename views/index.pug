@@ -14,7 +14,7 @@ block content
   .container.d-flex.flex-row.flex-wrap
     if(tours)
       if tours.total <= 0 
-        .alert.alert-info 검색결과가 없습니다 :)
+        p 검색결과가 없습니다 :)
       else
         each tour in tours.docs
           .index_product

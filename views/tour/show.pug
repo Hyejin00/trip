@@ -49,6 +49,29 @@ block content
     a.btn.btn-info.btn-lg(href=`/users/wish/${item.tour._id}`)
       span.glyphicon.glyphicon-shopping-cart
         | Shopping Cart
+    h4 후기
+    form(action=`/reviews/${item.tour._id}`, method="post")
+      .input
+        .input_form
+          input.form-control(type="text", name="title", placeholder="제목을 적어주세요.")
+          textarea.form-control(name="review_body", cols="30", rows="10", placeholder="소중한 후기를 적어주세요.")
+          input.form-control-file#file(type="file")
+          input#url.form-control(type="hidden", readonly="readonly", name="photo", value="")
+        button.btn.btn-primary(type='submit') 입력
+    each review in reviews
+      .coment.justify-content-between
+        .body
+          p= review.title
+          .sub_info
+            span= review.user.name
+            span= moment(review.createdAt).format('YYYY-MM-DD HH:mm:ss')
+          p= review.description
+        if(review.photo != '')
+          img.img-thumbnail.rounded(src=review.photo, alt="review_photo")
+      
+
+
+  script(src="/javascripts/image.js")
   script(src="/javascripts/calculator.js")
   script.
     $(function() {
