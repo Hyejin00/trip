@@ -1,5 +1,5 @@
 # trip
-2-2학기 가초 웹프로그래밍의 기말 프로젝트인 여행 상품 판매 사이트.
+2-2학기 가초 웹프로그래밍의 기말 프로젝트인 여행 상품 판매 사이트. \n
 https://sheltered-tor-58539.herokuapp.com/
 ## 사용 기술
 html(pug), bootstrap, javascript, AWS S3, mongoDB, heroku
