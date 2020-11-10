@@ -15,6 +15,7 @@ html(pug), bootstrap, javascript, AWS S3, mongoDB, heroku
   * 나의 상품 예약 읽기, 삭제
   * 나의 상품 읽기, 삭제, 생성
 * 관리자
+  * 사용자 기능
   * 이용자 읽기, 삭제, 권한 설정
   * 예약 목록, 상품 목록, 리뷰 읽기 및 삭제
 ---
