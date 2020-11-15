@@ -19,9 +19,8 @@ block content
         each tour in tours.docs
           .index_product
           a(href=`/tours/show/${tour._id}`)
-            div.card(style="width: 18rem;")
+            div.card
               img.card-img-top(src=tour.main_photo, alt="tour main photo")
               div.card-body
                 h5.card-title=tour.title
-                p.card-textSome= tour.description
         +paginate(tours, '/', query)

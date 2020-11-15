@@ -154,6 +154,11 @@ h5{
 .guide_name p{
   font-size:1.1rem;
 }
+.card{
+  width: 18rem;
+  height: 20rem;
+  margin-bottom: 1rem;
+}
 .card img{
   width: 17.9rem;
   height: 11.8rem;
