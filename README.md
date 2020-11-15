@@ -1,10 +1,12 @@
 # trip
 2-2학기 가초 웹프로그래밍의 기말 프로젝트인 여행 상품 판매 사이트.
 <p float="center">
- <img src="https://user-images.githubusercontent.com/44718809/99185130-3949b000-278b-11eb-8f57-f8503fe9f533.PNG"  width="1000" height="600">
+ <img src="https://user-images.githubusercontent.com/44718809/99185130-3949b000-278b-11eb-8f57-f8503fe9f533.PNG"  width="1000" height="670">
 </p>
 
 https://sheltered-tor-58539.herokuapp.com/
+
+
 ## 사용 기술
 html(pug), bootstrap, javascript, AWS S3, mongoDB, heroku
 ## 기능
